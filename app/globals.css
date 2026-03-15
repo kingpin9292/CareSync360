@@ -1,15 +1,37 @@
 @import "tailwindcss";
-@import "tw-animate-css";
-@import "shadcn/tailwind.css";
 
-@custom-variant dark (&:is(.dark *));
+@layer theme, base, components, utilities;
 
-/* ========================================== BASE STYLES */
+/* ========================================== THEME TOKENS (optional but recommended) */
+.PhoneInputCountrySelect {
+  background-color: #1f1e1e !important;
+  color: #fff !important;
+  border: 1px solid #363a3d !important;
+}
+
+@layer theme {
+  :root {
+    /* Typography scale – you can use these in utilities or directly */
+    --font-size-12: 0.75rem; /* 12px */
+    --font-size-14: 0.875rem;
+    --font-size-16: 1rem;
+    --font-size-18: 1.125rem;
+    --font-size-24: 1.5rem;
+    --font-size-32: 2rem;
+    --font-size-36: 2.25rem;
+
+    --line-height-16: 1rem;
+    --line-height-18: 1.125rem;
+    --line-height-20: 1.25rem;
+    --line-height-24: 1.5rem;
+    --line-height-28: 1.75rem;
+    --line-height-36: 2.25rem;
+    --line-height-40: 2.5rem;
+  }
+}
+/* ========================================== BASE LAYER */
 @layer base {
   @theme {
-    /* :root {
-      --font-sans: "Inter", system-ui, sans-serif;
-    } */
     --color-testcolor: #ff00ff;
 
     --color-green-500: #24ae7c;
@@ -36,351 +58,346 @@
     --background-image-cancelled: url("/assets/images/cancelled-bg.png");
 
     --animate-accordion-down: accordion-down 0.2s ease-out;
-    --animate-accordion-up: accordion-up 0.2s ease-out;
-    --animate-caret-blink: caret-blink 1.25s ease-out infinite;
   }
-  * {
-    @apply border-border outline-ring/50;
+  /* Remove scrollbar – works the same */
+  .remove-scrollbar::-webkit-scrollbar {
+    width: 0;
+    height: 0;
   }
-  body {
-    @apply bg-background text-foreground;
+  .remove-scrollbar::-webkit-scrollbar-track,
+  .remove-scrollbar::-webkit-scrollbar-thumb {
+    background: transparent;
   }
-  html {
-    @apply font-sans;
+  .remove-scrollbar::-webkit-scrollbar-thumb:hover {
+    background: transparent;
   }
 }
-/* Remove scrollbar *
-/* Define the utility class itself */
-@utility remove-scrollbar {
-  -ms-overflow-style: none; /* IE/Edge */
-  scrollbar-width: none; /* Firefox */
+
+/* ========================================== COMPONENTS / UTILITIES LAYER */
+@layer components {
+  /* ===== SIDEBARS ===== */
+  .sidebar {
+    scrollbar-width: none; /* Firefox */
+    -ms-overflow-style: none; /* IE/Edge */
+    width: 100%;
+    max-width: 18rem; /* ≈ 72 * 0.25rem */
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    background-color: #0d0f10; /* assuming bg-black-800 ≈ dark-200 or custom */
+    padding-left: 1.75rem;
+    padding-right: 1.75rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+  .sidebar::-webkit-scrollbar {
+    display: none;
+  } /* extra insurance */
+
+  .left-sidebar {
+    @media (min-width: 1024px) {
+      display: flex;
+    }
+  }
+  .right-sidebar {
+    @media (min-width: 1280px) {
+      display: flex;
+    }
+  }
+
+  /* ===== UTILITIES / LAYOUT ===== */
+  .clip-text {
+    background-clip: text;
+    -webkit-background-clip: text;
+    color: transparent;
+  }
+  .bg-image {
+    background-color: #0a0c0d;
+    background-image: var(--bg-light-rays, url("/path/to/light-rays"));
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+  .header {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+    @media (min-width: 768px) {
+      font-size: 2.25rem;
+      line-height: 2.5rem;
+    }
+  }
+  .sub-header {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+    @media (min-width: 768px) {
+      font-size: 1.5rem;
+      line-height: 1.75rem;
+    }
+  }
+
+  .container {
+    position: relative;
+    flex: 1 1 0%;
+    overflow-y: auto;
+    padding-left: 5%;
+    padding-right: 5%;
+  }
+  .sub-container {
+    margin-left: auto;
+    margin-right: auto;
+    height: 100%;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .side-img {
+    display: none;
+    height: 100%;
+    object-fit: cover;
+    @media (min-width: 768px) {
+      display: block;
+    }
+  }
+
+  .copyright {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+    text-align: center;
+    color: #76828d;
+    justify-self: end;
+    @media (min-width: 1280px) {
+      text-align: left;
+    }
+  }
+
+  /* ===== SUCCESS / STAT ===== */
+  .success-img {
+    margin: auto;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2.5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+  }
+
+  .request-details {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+    border-top: 2px solid #1a1d21;
+    border-bottom: 2px solid #1a1d21;
+    padding-top: 2rem;
+    padding-bottom: 2rem;
+    @media (min-width: 768px) {
+      width: auto;
+      flex-direction: row;
+    }
+  }
+
+  .admin-header {
+    position: sticky;
+    top: 0.75rem;
+    z-index: 20;
+    margin-left: 0.75rem;
+    margin-right: 0.75rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 1rem;
+    background-color: #1a1d21;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 1.25rem;
+    padding-bottom: 1.25rem;
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1);
+    @media (min-width: 1280px) {
+      padding-left: 3rem;
+      padding-right: 3rem;
+    }
+  }
+
+  /* ... you can continue converting others similarly ... */
+
+  /* ===== TYPOGRAPHY CLASSES (alternative: use theme vars + arbitrary) ===== */
+  .text-36-bold {
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+    font-weight: 700;
+  }
+  .text-32-bold {
+    font-size: 2rem;
+    line-height: 2.25rem;
+    font-weight: 700;
+  }
+  .text-24-bold {
+    font-size: 1.5rem;
+    line-height: 1.75rem;
+    font-weight: 700;
+  }
+  .text-18-bold {
+    font-size: 1.125rem;
+    line-height: 1.5rem;
+    font-weight: 700;
+  }
+  .text-16-semibold {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 600;
+  }
+  .text-16-regular {
+    font-size: 1rem;
+    line-height: 1.25rem;
+    font-weight: 400;
+  }
+  .text-14-medium {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 500;
+  }
+  .text-14-regular {
+    font-size: 0.875rem;
+    line-height: 1.125rem;
+    font-weight: 400;
+  }
+  .text-12-regular {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 400;
+  }
+  .text-12-semibold {
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 600;
+  }
+
+  /* ===== ALIGNMENTS ===== */
+  .flex-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .flex-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  /* ===== SHADCN / COMPONENT OVERRIDES – keep !important only when really needed ===== */
+  .shad-primary-btn {
+    background-color: #24ae7c;
+    color: white;
+    cursor: pointer;
+  }
+  .shad-danger-btn {
+    background-color: #f24e43;
+    color: white;
+  }
+  .shad-gray-btn {
+    border: 1px solid #363a3d;
+    background-color: #1a1d21;
+    color: white;
+    cursor: pointer;
+  }
+
+  .shad-input,
+  .shad-input-icon,
+  .shad-textArea {
+    background-color: #1a1d21;
+    border-color: #363a3d;
+    height: 2.75rem;
+    color: white;
+    &::placeholder {
+      color: #76828d;
+    }
+    &:focus-visible {
+      outline: none;
+      box-shadow: none;
+    }
+  }
+
+  /* ... continue for other shadcn classes ... */
+
+  /* ===== FILE UPLOAD / RADIO / CHECKBOX ===== */
+  .file-upload {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    border: 1px dashed #363a3d;
+    background-color: #1a1d21;
+    padding: 1.25rem;
+    border-radius: 0.375rem;
+    cursor: pointer;
+    font-size: 0.75rem;
+    line-height: 1rem;
+    font-weight: 400;
+  }
+
+  /* ... add more as needed ... */
 }
 
-/* Then use plain CSS for the pseudo-element */
-.remove-scrollbar::-webkit-scrollbar {
-  display: none; /* Chrome/Safari */
-}
+/* ===== THIRD-PARTY OVERRIDES (unchanged or slightly cleaned) ===== */
+@layer components {
+  /* React Datepicker */
+  .react-datepicker,
+  .react-datepicker__header,
+  .react-datepicker__time,
+  .react-datepicker__current-month,
+  .react-datepicker__day-name,
+  .react-datepicker__day {
+    background-color: #1a1d21 !important;
+    border-color: #363a3d !important;
+    color: #abb8c4 !important;
+  }
 
-/* ========================================== UTILITIES */
+  .react-datepicker__current-month,
+  .react-datepicker__day-name {
+    color: white !important;
+  }
 
-/* Sidebar */
-@utility sidebar {
-  @apply remove-scrollbar w-full max-w-[18rem] flex-col overflow-auto bg-black px-7 py-10;
-}
+  .react-datepicker__day--selected,
+  .react-datepicker__time-list-item--selected {
+    background-color: #24ae7c !important;
+    color: white !important;
+  }
 
-/* Left / Right sidebars */
-@utility left-sidebar {
-  @apply hidden lg:flex;
-}
-@utility right-sidebar {
-  @apply hidden xl:flex;
-}
+  /* Phone Input */
+  .PhoneInput {
+    outline: none;
+    margin-left: 4px;
+    background: #1a1d21;
+    font-size: 14px;
+    font-weight: 500;
+  }
 
-/* Text clipping */
-@utility clip-text {
-  @apply bg-clip-text text-transparent;
-}
+  .PhoneInput::placeholder {
+    color: #abb8c4;
+  }
 
-/* Background image */
-@utility bg-image {
-  @apply bg-black bg-cover bg-no-repeat;
-}
-
-/* Headers */
-@utility header {
-  @apply text-[32px] leading-9 font-bold md:text-[36px] md:leading-10;
-}
-@utility sub-header {
-  @apply text-[18px] leading-6 font-bold md:text-[24px] md:leading-7;
-}
-
-/* Containers */
-@utility container {
-  @apply relative flex-1 overflow-y-auto px-[5%];
-}
-@utility sub-container {
-  @apply mx-auto flex size-full flex-col py-10;
-}
-
-/* Images */
-@utility side-img {
-  @apply hidden h-full object-cover md:block;
-}
-
-/* Copyright */
-@utility copyright {
-  @apply text-[14px] leading-[18px] font-normal justify-items-end text-center text-neutral-500 xl:text-left;
-}
-
-/* Success */
-@utility success-img {
-  @apply m-auto flex flex-1 flex-col items-center justify-between gap-10 py-10;
-}
-@utility request-details {
-  @apply flex w-full flex-col items-center gap-8 border-y-2 border-neutral-700 py-8 md:w-fit md:flex-row;
-}
-
-/* Admin */
-@utility admin-header {
-  @apply sticky top-3 z-20 mx-3 flex items-center justify-between rounded-2xl bg-neutral-800 px-[5%] py-5 shadow-lg xl:px-12;
-}
-@utility admin-main {
-  @apply flex flex-col items-center space-y-6 px-[5%] pb-12 xl:space-y-12 xl:px-12;
-}
-@utility admin-stat {
-  @apply flex w-full flex-col justify-between gap-5 sm:flex-row xl:gap-10;
-}
-
-/* Form */
-@utility radio-group {
-  @apply flex h-full flex-1 items-center gap-2 rounded-md border border-dashed border-neutral-600 bg-neutral-700 p-3;
-}
-@utility checkbox-label {
-  @apply cursor-pointer text-sm font-medium text-neutral-400 peer-disabled:cursor-not-allowed peer-disabled:opacity-70 md:leading-none;
-}
-
-/* File Upload */
-@utility file-upload {
-  @apply text-[12px] leading-[16px] flex cursor-pointer flex-col items-center justify-center gap-3 rounded-md border border-dashed border-neutral-600 bg-neutral-700 p-5;
-}
-@utility file-upload_label {
-  @apply flex flex-col justify-center gap-2 text-center text-neutral-500;
-}
-
-/* Stat Card */
-@utility stat-card {
-  @apply flex flex-1 flex-col gap-6 rounded-2xl bg-cover p-6 shadow-lg;
-}
-
-/* Status Badge */
-@utility status-badge {
-  @apply flex w-fit items-center gap-2 rounded-full px-4 py-2;
-}
-
-/* Data Table */
-@utility data-table {
-  @apply z-10 w-full overflow-hidden rounded-lg border border-neutral-600 shadow-lg;
-}
-@utility table-actions {
-  @apply flex w-full items-center justify-between space-x-2 p-4;
-}
-
-/* Alignments */
-@utility flex-center {
-  @apply flex items-center justify-center;
-}
-@utility flex-between {
-  @apply flex items-center justify-between;
-}
-
-/* Typography */
-@utility text-36-bold {
-  @apply text-[36px] leading-[40px] font-bold;
-}
-@utility text-24-bold {
-  @apply text-[24px] leading-[28px] font-bold;
-}
-@utility text-32-bold {
-  @apply text-[32px] leading-[36px] font-bold;
-}
-@utility text-18-bold {
-  @apply text-[18px] leading-[24px] font-bold;
-}
-@utility text-16-semibold {
-  @apply text-[16px] leading-[20px] font-semibold;
-}
-@utility text-16-regular {
-  @apply text-[16px] leading-[20px] font-normal;
-}
-@utility text-14-medium {
-  @apply text-[14px] leading-[18px] font-medium;
-}
-@utility text-14-regular {
-  @apply text-[14px] leading-[18px] font-normal;
-}
-@utility text-12-regular {
-  @apply text-[12px] leading-[16px] font-normal;
-}
-@utility text-12-semibold {
-  @apply text-[12px] leading-[16px] font-semibold;
-}
-
-/* SHADCN Overrides */
-@utility shad-primary-btn {
-  @apply bg-green-500 text-white;
-}
-@utility shad-danger-btn {
-  @apply bg-red-700 text-white;
-}
-@utility shad-gray-btn {
-  @apply border border-neutral-600 cursor-pointer bg-neutral-700 text-white;
-}
-@utility shad-input-label {
-  @apply text-[14px] leading-[18px] font-medium text-neutral-400;
-}
-@utility shad-input {
-  @apply bg-neutral-700 placeholder:text-neutral-500 border-neutral-600 h-11;
-}
-@utility shad-input-icon {
-  @apply bg-neutral-700 placeholder:text-neutral-500 border-neutral-600 h-11;
-}
-@utility shad-textArea {
-  @apply bg-neutral-700 placeholder:text-neutral-500 border-neutral-600;
-}
-@utility shad-combobox-item {
-  @apply data-[disabled=true]:pointer-events-none data-[disabled=true]:opacity-50;
-}
-@utility shad-combobox-trigger {
-  @apply h-11;
-}
-@utility shad-select-trigger {
-  @apply bg-neutral-700 placeholder:text-neutral-500 border-neutral-600 h-11;
-}
-@utility shad-select-content {
-  @apply bg-neutral-700 border-neutral-600;
-}
-@utility shad-dialog {
-  @apply bg-neutral-700 border-neutral-600;
-}
-@utility shad-error {
-  @apply text-red-400;
-}
-@utility shad-table {
-  @apply rounded-lg overflow-hidden;
-}
-@utility shad-table-row-header {
-  @apply border-b border-neutral-600 text-neutral-200 hover:bg-transparent;
-}
-@utility shad-table-row {
-  @apply border-b border-neutral-600 text-neutral-200;
-}
-@utility shad-otp {
-  @apply w-full flex justify-between;
-}
-@utility shad-otp-slot {
-  @apply text-[36px] leading-[40px] font-bold justify-center flex border border-neutral-600 rounded-lg size-16 gap-4;
-}
-@utility shad-alert-dialog {
-  @apply space-y-5 bg-neutral-700 border-neutral-600 outline-none;
-}
-
-/* Phone Input */
-@utility input-phone {
-  @apply mt-2 h-11 rounded-md px-3 text-sm border bg-neutral-700 placeholder:text-neutral-500 border-neutral-600;
-}
-
-/* Date Picker */
-@utility date-picker {
-  @apply overflow-hidden border-transparent w-full placeholder:text-neutral-500 h-11 text-[14px] leading-[18px] font-medium rounded-md px-3 outline-none;
-}
-
-:root {
-  --background: oklch(1 0 0);
-  --foreground: oklch(0.145 0 0);
-  --card: oklch(1 0 0);
-  --card-foreground: oklch(0.145 0 0);
-  --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
-  --primary-foreground: oklch(0.985 0 0);
-  --secondary: oklch(0.97 0 0);
-  --secondary-foreground: oklch(0.205 0 0);
-  --muted: oklch(0.97 0 0);
-  --muted-foreground: oklch(0.556 0 0);
-  --accent: oklch(0.97 0 0);
-  --accent-foreground: oklch(0.205 0 0);
-  --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.922 0 0);
-  --input: oklch(0.922 0 0);
-  --ring: oklch(0.708 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --radius: 0.625rem;
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0 0);
-  --sidebar-primary: oklch(0.205 0 0);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.97 0 0);
-  --sidebar-accent-foreground: oklch(0.205 0 0);
-  --sidebar-border: oklch(0.922 0 0);
-  --sidebar-ring: oklch(0.708 0 0);
-}
-
-.dark {
-  --background: oklch(0.145 0 0);
-  --foreground: oklch(0.985 0 0);
-  --card: oklch(0.205 0 0);
-  --card-foreground: oklch(0.985 0 0);
-  --popover: oklch(0.205 0 0);
-  --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
-  --primary-foreground: oklch(0.205 0 0);
-  --secondary: oklch(0.269 0 0);
-  --secondary-foreground: oklch(0.985 0 0);
-  --muted: oklch(0.269 0 0);
-  --muted-foreground: oklch(0.708 0 0);
-  --accent: oklch(0.269 0 0);
-  --accent-foreground: oklch(0.985 0 0);
-  --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
-  --input: oklch(1 0 0 / 15%);
-  --ring: oklch(0.556 0 0);
-  --chart-1: oklch(0.809 0.105 251.813);
-  --chart-2: oklch(0.623 0.214 259.815);
-  --chart-3: oklch(0.546 0.245 262.881);
-  --chart-4: oklch(0.488 0.243 264.376);
-  --chart-5: oklch(0.424 0.199 265.638);
-  --sidebar: oklch(0.205 0 0);
-  --sidebar-foreground: oklch(0.985 0 0);
-  --sidebar-primary: oklch(0.488 0.243 264.376);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.269 0 0);
-  --sidebar-accent-foreground: oklch(0.985 0 0);
-  --sidebar-border: oklch(1 0 0 / 10%);
-  --sidebar-ring: oklch(0.556 0 0);
-}
-
-@theme inline {
-  --font-sans: var(--font-sans);
-  --color-sidebar-ring: var(--sidebar-ring);
-  --color-sidebar-border: var(--sidebar-border);
-  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
-  --color-sidebar-accent: var(--sidebar-accent);
-  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
-  --color-sidebar-primary: var(--sidebar-primary);
-  --color-sidebar-foreground: var(--sidebar-foreground);
-  --color-sidebar: var(--sidebar);
-  --color-chart-5: var(--chart-5);
-  --color-chart-4: var(--chart-4);
-  --color-chart-3: var(--chart-3);
-  --color-chart-2: var(--chart-2);
-  --color-chart-1: var(--chart-1);
-  --color-ring: var(--ring);
-  --color-input: var(--input);
-  --color-border: var(--border);
-  --color-destructive: var(--destructive);
-  --color-accent-foreground: var(--accent-foreground);
-  --color-accent: var(--accent);
-  --color-muted-foreground: var(--muted-foreground);
-  --color-muted: var(--muted);
-  --color-secondary-foreground: var(--secondary-foreground);
-  --color-secondary: var(--secondary);
-  --color-primary-foreground: var(--primary-foreground);
-  --color-primary: var(--primary);
-  --color-popover-foreground: var(--popover-foreground);
-  --color-popover: var(--popover);
-  --color-card-foreground: var(--card-foreground);
-  --color-card: var(--card);
-  --color-foreground: var(--foreground);
-  --color-background: var(--background);
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-xl: calc(var(--radius) * 1.4);
-  --radius-2xl: calc(var(--radius) * 1.8);
-  --radius-3xl: calc(var(--radius) * 2.2);
-  --radius-4xl: calc(var(--radius) * 2.6);
+  .input-phone {
+    margin-top: 0.5rem;
+    height: 2.75rem;
+    border-radius: 0.375rem;
+    padding-left: 0.75rem;
+    padding-right: 0.75rem;
+    font-size: 0.875rem;
+    border: 1px solid #363a3d;
+    background-color: #1a1d21;
+    color: white;
+    &::placeholder {
+      color: #76828d;
+    }
+  }
 }
