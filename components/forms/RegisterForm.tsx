@@ -10,7 +10,7 @@ import SubmitButton from "../SubmitButton";
 import { z } from "zod";
 import { Form, FormControl } from "../ui/form";
 import { RadioGroup, RadioGroupItem } from "../ui/radio-group";
-import { Doctors, GenderOptions, IdentificationTypes } from "@/constants";
+import { Doctors, GenderOptions, IdentificationTypes, PatientFormDefaultValues } from "@/constants";
 import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
@@ -24,29 +24,10 @@ const RegisterForm = ({ user }: { user: User }) => {
   const form = useForm<z.infer<typeof PatientFormValidation>, any>({
     resolver: zodResolver(PatientFormValidation),
     defaultValues: {
+      ...PatientFormDefaultValues,
       name: user.name,
       email: user.email,
       phone: user.phone,
-
-      birthDate: new Date(Date.now()),
-      gender: "male",
-      address: "",
-      occupation: "",
-      emergencyContactName: "",
-      emergencyContactNumber: "",
-      primaryPhysician: "",
-      insuranceProvider: "",
-      insurancePolicyNumber: "",
-      allergies: "",
-      currentMedication: "",
-      familyMedicalHistory: "",
-      pastMedicalHistory: "",
-      identificationType: "Birth Certificate",
-      identificationNumber: "",
-      identificationDocument: [],
-      treatmentConsent: false,
-      disclosureConsent: false,
-      privacyConsent: false,
     },
   });
 

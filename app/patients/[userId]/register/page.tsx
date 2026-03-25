@@ -21,7 +21,7 @@ const Register = async ({ params }: { params: Promise<{ userId: string }> }) => 
           />
           <RegisterForm user={user} />
 
-          <p className="copyright py-12">© 2024 CarePulse</p>
+          <p className="copyright py-12">© 2026 CareSync360</p>
         </div>
       </section>
 
