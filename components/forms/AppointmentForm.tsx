@@ -10,7 +10,7 @@ import { getAppointmentSchema, UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
 import { createUser } from "@/lib/actions/patient.actions";
 import { Appointment } from "@/types/appwrite.types";
-import { createAppointment } from "@/lib/actions/appointment.acctions";
+import { createAppointment } from "@/lib/actions/appointment.actions";
 import { FormFieldType } from "./PatientForm";
 import { Doctors } from "@/constants";
 import { SelectItem } from "../ui/select";

@@ -1,11 +1,16 @@
 import PatientForm from "@/components/forms/PatientForm";
+import PassKeyModal from "@/components/PassKeyModal";
 
 import Image from "next/image";
 import Link from "next/link";
 
-export default function Home() {
+const Home = async ({ searchParams }: { searchParams: Promise<{ [key: string]: string | string[] }> }) => {
+  const awaitedSearchParams = await searchParams;
+  const isAdmin = awaitedSearchParams.admin === "true";
+
   return (
     <div className="flex h-screen max-h-screen">
+      {isAdmin && <PassKeyModal />}
       <section className="remove-scrollbar container my-auto">
         <div className="sub-container max-w-124">
           <Image
@@ -18,7 +23,7 @@ export default function Home() {
           <PatientForm />
 
           <div className="text-14-regular mt-20 flex justify-between">
-            <p className="justify-items-end text-dark-600 xl:text-left">© 2024 CarePulse</p>
+            <p className="justify-items-end text-dark-600 xl:text-left">© 2026 CareSync360</p>
 
             <Link href="/?admin=true" className="text-green-500">
               Admin
@@ -35,4 +40,5 @@ export default function Home() {
       />
     </div>
   );
-}
+};
+export default Home;

@@ -539,8 +539,8 @@
     align-items: center !important;
     border: 1px solid #2a2a2a !important;
     border-radius: 0.5rem !important;
-    width: 4rem !important; /* size-16 */
-    height: 4rem !important;
+    width: 3rem !important; /* size-16 */
+    height: 3rem !important;
     gap: 1rem !important;
   }
 
@@ -548,8 +548,6 @@
     background-color: #1f1f1f !important;
     border-color: #2a2a2a !important;
     outline: none !important;
-    display: flex;
-    flex-direction: column;
     gap: 1.25rem; /* space-y-5 */
   }
 

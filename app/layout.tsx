@@ -12,7 +12,7 @@ const fontSans = FontSans({
 
 export const metadata: Metadata = {
   title: "CareSync360",
-  description: "A healthcare managemetn system",
+  description: "A healthcare management system",
 };
 
 export default function RootLayout({
