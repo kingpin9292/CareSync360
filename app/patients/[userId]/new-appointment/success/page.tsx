@@ -5,7 +5,6 @@ import { getAppointment } from "@/lib/actions/appointment.actions";
 import { formatDateTime } from "@/lib/utils";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
 
 const success = async ({
   params,

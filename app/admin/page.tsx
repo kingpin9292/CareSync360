@@ -5,81 +5,7 @@ import { getRecentAppointmentList } from "@/lib/actions/appointment.actions";
 import Image from "next/image";
 import Link from "next/link";
 
-async function getData(): Promise<Payment[]> {
-  // Fetch data from your API here.
-  return [
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "scheduled",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "cancelled",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    {
-      id: "728ed52f",
-      amount: 100,
-      status: "pending",
-      email: "m@example.com",
-    },
-    // ...
-  ];
-}
-
 const Admin = async () => {
-  const data = await getData();
   const appointments = await getRecentAppointmentList();
   return (
     <div className="mx-auto flex max-w-7xl flex-col space-y-14">
@@ -87,7 +13,7 @@ const Admin = async () => {
         <Link href="/" className="cursor-pointer">
           <Image src="/assets/icons/logo-full.svg" alt="Logo" height={32} width={162} className="h-11 w-fit" />
         </Link>
-        <p className="text-16-semibold">Admin Dashboard</p>
+        <p className="text-16-semibold text-green-700">Admin Dashboard</p>
       </header>
 
       <main className="admin-main">
@@ -117,8 +43,8 @@ const Admin = async () => {
           />
         </section>
 
-        {/* <DataTable columns={columns} data={appointments.documents} /> */}
-        <DataTable columns={columns} data={data} />
+        <DataTable columns={columns} data={appointments.documents} />
+        {/* <DataTable columns={columns} data={data} /> */}
       </main>
     </div>
   );

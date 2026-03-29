@@ -22,7 +22,7 @@ const NewAppointment = async ({ params }: { params: Promise<{ userId: string }> 
             />
           </Link>
 
-          <AppointmentForm type="create" userId={userId} patientId={patient.$id} name={patient.name} />
+          <AppointmentForm type="create" userId={userId} patientId={patient.$id} patientName={patient.name} />
           <p className="copyright mt-10 py-12">© 2026 CareSync360</p>
         </div>
       </section>

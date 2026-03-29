@@ -11,6 +11,7 @@ import Image from "next/image";
 // import AppointmentModal from "../AppointmentModal";
 import { Appointment } from "@/types/appwrite.types";
 import StatusBadge from "../StatusBadge";
+import AppointmentModal from "../AppointmentModal";
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 
@@ -24,7 +25,7 @@ export const columns: ColumnDef<Appointment>[] = [
     header: "Patient",
     cell: ({ row }) => {
       const appointment = row.original;
-      return <p className="text-14-medium ">{appointment?.patientName}</p>;
+      return <p className="text-14-medium ">{appointment.patientName}</p>;
     },
   },
   {
@@ -59,8 +60,8 @@ export const columns: ColumnDef<Appointment>[] = [
     cell: ({ row: { original: data } }) => {
       return (
         <div className="flex gap-1">
-          {/* <AppointmentModal type="schedule" patientId={data.patient.$id} userId={data.userId} appointment={data} />
-          <AppointmentModal type="cancel" patientId={data.patient.$id} userId={data.userId} appointment={data} /> */}
+          {<AppointmentModal type="schedule" userId={data.userId} patientId={data.patient.$id} appointment={data} />}
+          {<AppointmentModal type="cancel" userId={data.userId} patientId={data.patient.$id} appointment={data} />}
         </div>
       );
     },
