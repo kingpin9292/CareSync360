@@ -1,5 +1,5 @@
 "use client";
-import { set, z } from "zod";
+import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Form } from "../ui/form";
@@ -8,7 +8,6 @@ import SubmitButton from "../SubmitButton";
 import { useState } from "react";
 import { getAppointmentSchema, UserFormValidation } from "@/lib/validation";
 import { useRouter } from "next/navigation";
-import { createUser } from "@/lib/actions/patient.actions";
 import { Appointment } from "@/types/appwrite.types";
 import { createAppointment, updateAppointment } from "@/lib/actions/appointment.actions";
 import { FormFieldType } from "./PatientForm";

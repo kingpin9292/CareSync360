@@ -15,7 +15,6 @@ import { Label } from "../ui/label";
 import { SelectItem } from "../ui/select";
 import Image from "next/image";
 import FileUploader from "../FIleUploader";
-import { blob } from "stream/consumers";
 import { registerPatient } from "@/lib/actions/patient.actions";
 
 const RegisterForm = ({ user }: { user: User }) => {
